@@ -2,6 +2,7 @@ import pygame
 
 
 class Square:
+
     def __init__(self, x, y, side_length):
         self.x = x
         self.y = y
