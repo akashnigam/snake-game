@@ -4,7 +4,7 @@ import square
 
 class Food:
 
-    def __init__(self, square_side, height, width, color):
+    def __init__(self, square_side, width, height, color):
         self.height = height
         self.width = width
         self.square_side = square_side

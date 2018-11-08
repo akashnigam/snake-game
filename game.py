@@ -1,7 +1,9 @@
 import pygame
 import grid
 import food
+import snake
 import sys
+from time import sleep
 
 
 class Game:
@@ -20,15 +22,24 @@ class Game:
         screen = pygame.display.set_mode(screen_size)
         grid_instance = grid.Grid(self.square_side, self.width, self.height, self.grid_color)
         food_generator = food.Food(self.square_side, self.width, self.height, self.food_color)
+        snake_instance = snake.Snake(self.square_side, self.width, self.height, self.snake_color)
         food_generator.create_food()
         while 1:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit()
+                if event.type == pygame.KEYDOWN:
+                    snake_instance.change_direction(event)
             screen.fill(self.bg_color)
+            snake_instance.move()
+            if snake_instance.eat_food_if_exist(food_generator):
+                food_generator.create_food()
             grid_instance.draw(screen)
             food_generator.draw(screen)
+            snake_instance.draw(screen)
             pygame.display.flip()
+            sleep(0.05)
+
 
     def start(self):
         self.draw()
@@ -40,10 +51,10 @@ red = (255, 0, 0)
 green = (0, 255, 0)
 blue = (0, 0, 255)
 
-board_width = 100
-board_height = 100
+board_width = 500
+board_height = 500
 board_square_side = 10
-board_grid_color = white
+board_grid_color = black
 board_snake_color = green
 board_food_color = blue
 board_bg_color = black
