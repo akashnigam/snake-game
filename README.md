@@ -7,4 +7,4 @@ Steps for running the game:-
 
 Sample image while running the game
 
-![Game Image]()
+(game_snapshot.jpeg)
