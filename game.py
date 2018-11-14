@@ -8,11 +8,12 @@ from time import sleep
 
 class Game:
 
-    def __init__(self, width, height, square_side, grid_color, snake_color, food_color, bg_color):
+    def __init__(self, width, height, square_side, grid_color, snake_color, snake_head_color, food_color, bg_color):
         self.width = width
         self.height = height
         self.grid_color = grid_color
         self.snake_color = snake_color
+        self.snake_head_color = snake_head_color
         self.food_color = food_color
         self.square_side = square_side
         self.bg_color = bg_color
@@ -22,7 +23,7 @@ class Game:
         screen = pygame.display.set_mode(screen_size)
         grid_instance = grid.Grid(self.square_side, self.width, self.height, self.grid_color)
         food_generator = food.Food(self.square_side, self.width, self.height, self.food_color)
-        snake_instance = snake.Snake(self.square_side, self.width, self.height, self.snake_color)
+        snake_instance = snake.Snake(self.square_side, self.width, self.height, self.snake_color, self.snake_head_color)
         food_generator.create_food()
         while 1:
             for event in pygame.event.get():
@@ -49,6 +50,7 @@ black = (0, 0, 0)
 white = (255, 255, 255)
 red = (255, 0, 0)
 green = (0, 255, 0)
+dark_green = (0, 150, 0)
 blue = (0, 0, 255)
 
 board_width = 500
@@ -56,8 +58,9 @@ board_height = 500
 board_square_side = 10
 board_grid_color = black
 board_snake_color = green
-board_food_color = blue
+board_snake_head_color = dark_green
+board_food_color = red
 board_bg_color = black
-game = Game(board_width, board_height, board_square_side, board_grid_color, board_snake_color, board_food_color,
-            board_bg_color)
+game = Game(board_width, board_height, board_square_side, board_grid_color, board_snake_color, board_snake_head_color,
+            board_food_color, board_bg_color)
 game.start()
