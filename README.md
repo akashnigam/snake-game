@@ -7,4 +7,4 @@ Steps for running the game:-
 
 Sample snapshot while running the game
 
-![Sample snapshot](game_snapshot.jpeg)
+![Sample snapshot](game_snapshot.jpeg =100x20)
