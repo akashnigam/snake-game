@@ -5,6 +5,6 @@ Steps for running the game:-
 2. Clone this repo.
 3. Run the file game.py
 
-Sample image while running the game
+Sample snapshot while running the game
 
-![Game Image]()
+![Sample snapshot](game_snapshot.jpeg)
