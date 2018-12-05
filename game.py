@@ -25,14 +25,21 @@ class Game:
         food_generator = food.Food(self.square_side, self.width, self.height, self.food_color)
         snake_instance = snake.Snake(self.square_side, self.width, self.height, self.snake_color, self.snake_head_color)
         food_generator.create_food()
+        gameFinished = False
         while 1:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit()
                 if event.type == pygame.KEYDOWN:
                     snake_instance.change_direction(event)
+            if gameFinished:
+                sleep(1)
+                continue
             screen.fill(self.bg_color)
-            snake_instance.move()
+            success = snake_instance.move()
+            if success == False:
+                gameFinished = True
+                continue
             if snake_instance.eat_food_if_exist(food_generator):
                 food_generator.create_food()
             grid_instance.draw(screen)
@@ -40,7 +47,6 @@ class Game:
             snake_instance.draw(screen)
             pygame.display.flip()
             sleep(0.05)
-
 
     def start(self):
         self.draw()

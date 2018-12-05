@@ -15,8 +15,15 @@ class Snake:
         self.head_pos = {"x": 0, "y": (height/square_side)/2}
         self.length = 1
         self.turn_list = []
+        self.squares_pos = []
 
     def change_direction(self, event):
+        # to prevent snake from turning in axis along which it is already moving
+        if self.head_dir["x_dir"] in [-1,1] and event.key in [pygame.K_LEFT, pygame.K_RIGHT]:
+            return
+        elif self.head_dir["y_dir"] in [-1,1] and event.key in [pygame.K_UP, pygame.K_DOWN]:
+            return
+
         head_pos = copy.copy(self.head_pos)
         head_dir = copy.copy(self.head_dir)
         self.turn_list.insert(0, {"pos": head_pos, "dir": head_dir})
@@ -38,6 +45,40 @@ class Snake:
         self.head_pos["x"] %= (self.board_width//self.square_side)
         self.head_pos["y"] += self.head_dir["y_dir"]
         self.head_pos["y"] %= (self.board_height // self.square_side)
+        self.squares_pos = self.get_squares_pos()
+        return self.assert_not_intersecting()
+
+    def get_squares_pos(self):
+        squares_pos_list = []
+        square_x = self.head_pos["x"]
+        square_y = self.head_pos["y"]
+        turn_index = 0
+        turn_list = self.turn_list
+        dirc = self.head_dir
+        for i in range(0, self.length):
+            new_square_pos = (square_x, square_y)
+            squares_pos_list.append(new_square_pos)
+            prev_sq_x = square_x
+            prev_sq_y = square_y
+            square_x = prev_sq_x - (dirc["x_dir"])
+            square_y = prev_sq_y - (dirc["y_dir"])
+            new_square_pos = (square_x, square_y)
+            if turn_index < len(turn_list):
+                turn_pos = turn_list[turn_index]["pos"]
+                turn_pos_tuple = (turn_pos["x"], turn_pos["y"])
+                if new_square_pos == turn_pos_tuple:
+                    dirc = turn_list[turn_index]["dir"]
+                    turn_index += 1
+        return squares_pos_list
+
+
+    def assert_not_intersecting(self):
+        pos_dict = {}
+        for square_pos in self.squares_pos:
+            if square_pos in pos_dict:
+                return False
+            pos_dict[square_pos] = 1
+        return True
 
     def eat_food_if_exist(self, food_obj):
         if food_obj.x == self.head_pos["x"] and food_obj.y == self.head_pos["y"]:
