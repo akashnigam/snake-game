@@ -1,4 +1,4 @@
-It is Snake Game implement using pygame module.
+It is Snake Game implement using python pygame module.
 
 Steps for running the game:-
 1. Install the pygame module if not already present.
