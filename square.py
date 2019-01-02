@@ -16,8 +16,7 @@ class Square:
         rect = (start_x, start_y, side_length, side_length)
         pygame.draw.rect(screen, color, rect)
         if addEye == 1:
-            circle_x = int((start_x + start_x + side_length)/2)
-            circle_y = int((start_y + start_y + side_length)/2)
-            circle_pos = (circle_x, circle_y)
-            radius = 1
-            pygame.draw.circle(screen, eyeColor, circle_pos, radius)
+            eye_start_x = int((start_x + start_x + side_length)/2)-1
+            eye_start_y = int((start_y + start_y + side_length)/2)-1
+            eye_rect = (eye_start_x, eye_start_y, 2, 1)
+            pygame.draw.rect(screen, eyeColor, eye_rect)
