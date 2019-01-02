@@ -95,7 +95,7 @@ class Snake:
         for i in range(0, self.length):
             sq = square.Square(square_x, square_y, self.square_side)
             if self.head_pos["x"] == square_x and self.head_pos["y"] == square_y:
-                sq.draw(screen, self.head_color)
+                sq.draw(screen, self.head_color, 1)
             else:
                 sq.draw(screen, self.color)
             prev_sq_x = square_x
